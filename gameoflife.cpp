@@ -1,3 +1,5 @@
+// thanks javidx9 for the great explanation
+// his channel :https://www.youtube.com/channel/UC-yuWVUplUJZvieEligKBkA
 #include<iostream>
 #include<SFML/Graphics.hpp>
 #include<SFML/Window.hpp>
