@@ -1,11 +1,10 @@
 #include<SFML/Graphics.hpp>
 #include<SFML/Window.hpp>
-#include<array>
+#include<vector>
 #include<iostream>
 #include<cstdlib>
 using namespace std;
 using namespace sf;
-#define speed 10
 #define SPECIAL_FOOD_TIME 10
 
 
