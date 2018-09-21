@@ -144,13 +144,9 @@ public:
 		return worm[0]->getPosition()==f.getPosition();
 	}
 	bool isDead(){
-		for(int i=0;i<l;++i)
-			for(int j=0;j<l;++j)
-				if(worm[i]->getPosition() == worm[j]->getPosition() && i != j && i>1){
+		for(int i=3;i<l;++i)
+				if(worm[0]->getPosition() == worm[i]->getPosition())
 					return true;
-				}
-			
-		
 		return false;		
 		}
 };
