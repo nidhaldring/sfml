@@ -149,6 +149,10 @@ public:
 					return true;
 		return false;		
 		}
+	virtual ~Worm(){
+		for(auto i:worm)
+			delete i;
+	}	
 };
 
 int main() {
