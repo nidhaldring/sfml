@@ -9,11 +9,6 @@ using namespace sf;
 #define SPECIAL_FOOD_TIME 10
 
 
-float mod(float a,int b){
-	if(a>=b)
-		return 0;
-	return a;
-}
 class Food: public Drawable {
 	bool special;
 	Vector2f pos;
