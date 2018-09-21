@@ -28,7 +28,6 @@ public:
 			food.setFillColor(Color::Blue);
 		else
 			food.setFillColor(Color::Red);
-		cout<<pos.x<<" "<<pos.y<<endl;
 	}
 	virtual void draw(RenderTarget& target,RenderStates state=RenderStates::Default) const {
 		target.draw(food);
