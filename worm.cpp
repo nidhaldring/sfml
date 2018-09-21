@@ -16,7 +16,6 @@ public:
 	Food():food(Vector2f(10,10)),pos(((rand()%80)*10),((rand()%60)*10)) {
 			food.setFillColor(Color::Red);
 			food.setPosition(pos);
-			cout<<pos.x<<" "<<pos.y<<endl;
 	}
 	void update() {
 		pos.x=(rand()%80)*10;
@@ -165,6 +164,8 @@ int main() {
 	Clock clock;
 	float dt=0;
 	bool first=true;
+	cout<<" collect  50 points to win :) "<<endl;
+	cout<<"your score is:"<<endl;
 	while(w.isOpen()){
 		updated=false;
 		Event event;
@@ -176,8 +177,11 @@ int main() {
 			}
 		if(!updated)
 			worm.keepMoving();
-		if(worm == food)
+		if(worm == food){
 			worm.eat(food);
+			first=true;
+		}
+
 		w.clear();
 		w.draw(worm);
 		if(food.isSpecial()){
@@ -194,14 +198,14 @@ int main() {
 		
 		w.draw(food);
 		w.display();
-		cout<<worm.getScore()<<endl;
+		cout<<worm.getScore()<<'\r'<<flush;
 		if(worm.isDead()){
-			cout<<" u've lost "<<endl;
+			cout<<'\n'<<" u've lost "<<endl;
 			w.close();
 		}
 
 		if(worm.getScore() >= 50){
-			cout<<" u've win"<<endl;
+			cout<<'\n'<<" u've win"<<endl;
 			w.close();
 		}
 	}
