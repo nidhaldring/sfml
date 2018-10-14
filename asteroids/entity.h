@@ -4,6 +4,7 @@
 #include<iostream>
 #include<cmath>
 #include<random>
+#include<string>
 using namespace sf;
 using namespace std;
 
@@ -11,17 +12,15 @@ class Entity:public Drawable {
 
 protected:
 	Vector2f speed;
-	bool dead=false;
-	float m; // to make things slower and stuff
+	float m,angle=0.f; //  m :to make things slower and stuff
 	Sprite entity;
-	Texture ent_txt;
-	int i=0,j=0;
-	Texture exp_txt;
-	float angle=0;
+	Texture ent_txt,exp_txt;
+	short i=0,j=0;
 	random_device rd;
 	FloatRect rect;
 	Clock c;
-	bool onDestruction=false;
+	bool dead=false,onDestruction=false;
+	string type;
 public:
 	Entity();
 	Entity& operator=(const Entity&)=delete;
@@ -53,11 +52,19 @@ public:
 	auto getSize() const {
 		return ent_txt.getSize();
 	}
-	bool isCollide(const Entity*) const ;
 
 	const FloatRect& getRect() const {
 		return rect;
 	};
+	float getAngle() const {
+		return angle;
+	}
+
+	const string& getType() const {
+		return type;
+	}
+
+
 };
 
 

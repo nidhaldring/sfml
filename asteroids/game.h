@@ -1,16 +1,19 @@
 #ifndef GAME_H
 #define GAME_H
-#include<SFML/Window.hpp>
 #include<list>
+#include"entity.h"
 #include"entities.h"
 #include<random>
 #include<cmath>
 using namespace std;
-class Game{
+using namespace sf;
+
+class Game{	
+private:
+
 	RenderWindow w;
 	list<Entity*> entities;
-	short lvl=0;
-	short score=0;
+	short lvl=0,score=0;
 	Ship* ship;
 	random_device rd;
 	Sprite background1,background2;
@@ -23,11 +26,13 @@ class Game{
 	void moveBackground(Sprite&);
 	void checkCollosion() const ;
 public:
+
 	Game();
 	Game(const Game&)=delete;
 	Game& operator=(const Game&)=delete;
-	~Game();
 	void run();
+	void addEntity(Entity*);
+	~Game();
 };
 
 

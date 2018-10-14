@@ -1,10 +1,11 @@
-#include"game.h"
 #include"config.h"
+#include"entity.h"
+#include"entities.h"	
+#include"game.h"
 #include<iostream>
-#include<thread>		
 using namespace std;
 
-Game::Game():w(VideoMode(800,600),"game"){
+Game::Game():w(VideoMode(800,600),"asteroids"){
 	ship=new Ship;
 	entities.push_back(ship);
 	loadBackground();
@@ -13,8 +14,8 @@ Game::Game():w(VideoMode(800,600),"game"){
 }
 
 void Game::loadBackground(){
-	back_txt1.loadFromFile("space.png");
-	back_txt2.loadFromFile("space.png");
+	back_txt1.loadFromFile("resources/images/space.png");
+	back_txt2.loadFromFile("resources/images/space.png");
 	background1.setTexture(back_txt1);
 	background2.setTexture(back_txt2);
 	background1.setOrigin(0,back_txt1.getSize().y);
@@ -51,7 +52,7 @@ void Game::renderEntities(){
 		return e->isDead();
 	});
 
-	for(auto& entity:entities){
+	for(auto entity:entities){
 		w.draw(*entity);
 		entity->update();
 	}
@@ -59,17 +60,16 @@ void Game::renderEntities(){
 
 void Game::createLvl(){
 	// settings for ultra hard stuff ;
-	int numBig=10,numMed=7,numSmall=5+lvl%2;
+	int numBig=4,numMed=3,numSmall=5;
 	// the smaller the harder the lvl ? 
 	if( lvl <= Config::EASY_LVLS){
-		numBig=4+lvl%2;
-		numMed=3;
-		numSmall=2;
+		numBig-=3;
+		numMed-=2;
+		numSmall-=3;
 	}
 	else if( lvl <= Config::MED_LVLS){
-		numBig=7+lvl%2;
-		numMed=5+lvl%3;
-		numSmall=5;
+		numBig-=2;
+		numMed-=2;
 	}
 
 	// create meteros duh :v 
@@ -89,12 +89,16 @@ void Game::createLvl(){
 }
 
 void Game::checkCollosion() const {
-		for(auto& e:entities)
-			if(ship->isCollide(e)){
-				ship->onDestroy();			
+		for(Entity* e1:entities)
+			for(Entity* e2:entities){
+				if(e1->getType()!="metero")
+					continue;
+				static_cast<Metero*>(e1)->onCollide(e2);
 			}
-			if(ship->isDead())
-				cout<<"dead"<<endl;
+}
+
+void Game::addEntity(Entity* e){
+	entities.push_back(e);
 }
 
 // main loop

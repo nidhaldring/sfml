@@ -3,7 +3,7 @@
 
 Entity::Entity(){
 	rect=entity.getGlobalBounds();
-	exp_txt.loadFromFile("exp.png");
+	exp_txt.loadFromFile("resources/images/exp.png");
 }
 
 const Vector2f& Entity::getPosition() const {
@@ -31,8 +31,8 @@ void Entity::checkEdges(){
 
 }
 
-void Entity::rotate(float _angle){
-	angle=_angle;
+void Entity::rotate(float angle){
+	this->angle=angle;
 	entity.rotate(angle);
 }
 
@@ -43,32 +43,30 @@ bool Entity::isDead() const noexcept{
 
 void Entity::onDestroy(){
  
+ 	if(isDead())
+ 		return;
 	if(!onDestruction){
-		entity.setTexture(exp_txt);
 		onDestruction=true;
+		entity.setTexture(exp_txt);
 	}
-	// SMTHNG MAKING THIS VERY SLOW 
-	entity.setTextureRect(IntRect(i,j,CONFIG_EXP,CONFIG_EXP));
+	
+	entity.setTextureRect(IntRect(i*CONFIG_EXP,j*CONFIG_EXP,
+		CONFIG_EXP,CONFIG_EXP));
+
 	if(c.getElapsedTime().asSeconds() >= CONFIG_EXP_FPS){
-		cout<<c.getElapsedTime().asSeconds()<<endl;
-		j+=CONFIG_EXP;
+		++i;
 		c.restart();
-		if( j >= Config::EXP_IMG_WIDTH){
-			j=0;
-			i+=CONFIG_EXP;
+		if( i*CONFIG_EXP >= Config::EXP_IMG_WIDTH){
+			i=0;
+			++j;
+			}
 		}
-		if( i >= Config::EXP_IMG_HEIGHT)
-				dead=true;	
-	}
+	
+	if( j*CONFIG_EXP >= Config::EXP_IMG_HEIGHT)		
+			dead=true;
 }
 
-bool Entity::isCollide(const Entity* entity) const {
-	// not enough
-	// color checking next
-	return  dynamic_cast<decltype(this)>(entity)!= this 
-		&& (entity->getRect().intersects(getRect()) 
-		|| getRect().intersects(entity->getRect()));
-}
+
 
 
 
