@@ -105,8 +105,6 @@ void Game::addEntity(Entity* e){
 
 void Game::run(){
 	Event event;
-	Metero m;
-	Ship s;
 	while(w.isOpen()){
 		while(w.pollEvent(event)){
 			if(event.type==Event::Closed)
