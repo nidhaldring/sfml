@@ -2,6 +2,7 @@
 #include"entity.h"
 #include"entities.h"	
 #include"game.h"
+#include"audio.h"
 #include<iostream>
 using namespace std;
 
@@ -10,6 +11,7 @@ Game::Game():w(VideoMode(800,600),"asteroids"){
 	entities.push_back(ship);
 	loadBackground();
 	createLvl();
+	Audio::init();
 	// change this later;
 }
 
@@ -105,6 +107,7 @@ void Game::addEntity(Entity* e){
 
 void Game::run(){
 	Event event;
+
 	while(w.isOpen()){
 		while(w.pollEvent(event)){
 			if(event.type==Event::Closed)

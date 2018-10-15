@@ -1,5 +1,6 @@
 #include"entity.h"
 #include"config.h"
+#include"audio.h"
 
 Entity::Entity(){
 	rect=entity.getGlobalBounds();
@@ -48,6 +49,7 @@ void Entity::onDestroy(){
 	if(!onDestruction){
 		onDestruction=true;
 		entity.setTexture(exp_txt);
+		Audio::explosion_effect.play();
 	}
 	
 	entity.setTextureRect(IntRect(i*CONFIG_EXP,j*CONFIG_EXP,

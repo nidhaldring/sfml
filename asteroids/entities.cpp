@@ -4,6 +4,7 @@
 #include"entities.h"
 #include"game.h"
 #include<iostream>
+#include"audio.h"
 
 
 Enemy::Enemy():Entity(){
@@ -83,6 +84,7 @@ void Ship::jumpToHyperSpace(){
 	// play effect ?
 	setPosition(rd()%(Config::W_WIDTH-getSize().x)
 		,rd()%(Config::W_HEIGHT-getSize().y));
+	Audio::playHyperEffect();
 }
 
 // firing
@@ -90,6 +92,7 @@ void Ship::fire(Game& game)  {
 	if(!onDestruction && c.getElapsedTime().asSeconds() >= BULLET_DELAY ){
 		game.addEntity(new Bullet(this));
 		c.restart();
+		Audio::laser_effect.play();
 	}
 }
 
